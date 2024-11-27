@@ -31,32 +31,30 @@ public class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-        .cors(cors -> cors.disable()) // Nonaktifkan CORS (sesuaikan jika perlu)
-        .csrf(csrf -> csrf.disable()) // Nonaktifkan CSRF
-        .exceptionHandling(exceptions -> 
-            exceptions.authenticationEntryPoint(unauthorizedHandler) // Atur Entry Point untuk error Unauthorized
-        )
-        .sessionManagement(session -> 
-            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Gunakan sesi stateless
-        )
-        .authorizeHttpRequests(authz -> 
-            authz
-                .requestMatchers(
-                    "/auth/**",                // Izinkan semua akses untuk /auth/**
-                    "/v3/api-docs/**",         // Izinkan akses ke dokumentasi API
-                    "/swagger-ui/**",          // Izinkan akses ke Swagger UI
-                    "/swagger-resources/**",   // Izinkan akses ke resources Swagger
-                    "/webjars/**"              // Izinkan akses ke dependensi web Swagger
-                ).permitAll()
-                .anyRequest().authenticated() // Endpoint lain memerlukan autentikasi
-        )
-        .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class); // Tambahkan filter autentikasi
+    http
+    .cors(cors -> cors.disable()) 
+    .csrf(csrf -> csrf.disable())
+    .exceptionHandling(exceptions -> 
+        exceptions.authenticationEntryPoint(unauthorizedHandler)
+    )
+    .sessionManagement(session -> 
+        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    )
+    .authorizeHttpRequests(authz -> 
+        authz
+            .requestMatchers(
+                "/auth/**",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/swagger-resources/**",
+                "/webjars/**"
+            ).permitAll()
+            .anyRequest().authenticated()
+    )
+    .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
 }
-
-    
 
     @Bean
     AuthTokenFilter authTokenFilter (){
