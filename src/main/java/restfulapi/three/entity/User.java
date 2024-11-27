@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users") // Ganti nama tabel
+@Table(name = "users") 
 @Data
 @NoArgsConstructor
 public class User implements Serializable {

@@ -29,14 +29,14 @@ public class RateLimiterInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);  // Try to consume 1 token
+        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);  
         if (probe.isConsumed()) {
-            return true; // Continue with the request
+            return true; 
         } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 429 Too Many Requests
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); 
             response.setContentType("application/json");
             response.getWriter().write("{\"error\": \"Rate limit exceeded. Please try again later.\"}");
-            return false; // Don't continue with the request
+            return false; 
         }
     }
 }

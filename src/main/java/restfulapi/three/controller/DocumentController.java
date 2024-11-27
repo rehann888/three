@@ -27,7 +27,7 @@ public class DocumentController {
     private DocumentService documentService;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()") // Hanya endpoint ini yang memerlukan autentikasi
+    @PreAuthorize("isAuthenticated()") 
     @Operation(summary = "Get all documents", description = "Fetch a list of all available documents.")
     public ResponseEntity<WebResponse<List<Document>>> getAllDocuments(@AuthenticationPrincipal UserDetailImplementation user) {
         List<Document> documents = documentService.getAllDocuments();
@@ -39,7 +39,7 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") // Sama seperti sebelumnya
+    @PreAuthorize("isAuthenticated()") 
     @Operation(summary = "Get document by ID", description = "Fetch a single document by its unique ID.")
     public ResponseEntity<WebResponse<Document>> getDocumentById(
             @AuthenticationPrincipal UserDetailImplementation user,
@@ -53,7 +53,7 @@ public class DocumentController {
     }
 
     @PostMapping
-    @PreAuthorize("isAuthenticated()") // Endpoint ini memerlukan autentikasi
+    @PreAuthorize("isAuthenticated()") 
     @Operation(summary = "Create a new document", description = "Upload and create a new document.")
     public ResponseEntity<WebResponse<Document>> createDocument(
             @AuthenticationPrincipal UserDetailImplementation user,
@@ -62,7 +62,7 @@ public class DocumentController {
             @Parameter(description = "Video file to upload") @RequestParam(value = "videoFile", required = false) MultipartFile videoFile,
             @Parameter(description = "Image file to upload") @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) throws Exception {
 
-        // Validasi file tetap sama
+        
         if (docFile != null && docFile.isEmpty()) {
             throw new RuntimeException("Document file is empty");
         }
@@ -95,7 +95,7 @@ public class DocumentController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") // Endpoint ini memerlukan autentikasi
+    @PreAuthorize("isAuthenticated()") 
     @Operation(summary = "Update document", description = "Update an existing document by ID.")
     public ResponseEntity<WebResponse<Document>> updateDocument(
             @AuthenticationPrincipal UserDetailImplementation user,
@@ -122,7 +122,7 @@ public class DocumentController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") // Endpoint ini memerlukan autentikasi
+    @PreAuthorize("isAuthenticated()") 
     @Operation(summary = "Delete document", description = "Delete an existing document by ID.")
     public ResponseEntity<WebResponse<Void>> deleteDocument(
             @AuthenticationPrincipal UserDetailImplementation user,

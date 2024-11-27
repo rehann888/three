@@ -33,12 +33,10 @@ public class DocumentService {
     }
 
     public Document saveDocument(Document document, MultipartFile docFile, MultipartFile videoFile, MultipartFile imageFile) throws Exception {
-        // Simpan file hanya jika ada
         String docFilePath = (docFile != null && !docFile.isEmpty()) ? saveFile(docFile, "docs") : null;
         String videoFilePath = (videoFile != null && !videoFile.isEmpty()) ? saveFile(videoFile, "videos") : null;
         String imageFilePath = (imageFile != null && !imageFile.isEmpty()) ? saveFile(imageFile, "images") : null;
     
-        // Set file path ke entity hanya jika ada file
         document.setDocFilePath(docFilePath);
         document.setVideoFilePath(videoFilePath);
         document.setImageFilePath(imageFilePath);
@@ -64,19 +62,18 @@ public class DocumentService {
     }
 
     private String saveFile(MultipartFile file, String subDir) throws Exception {
-        // Abaikan jika file tidak diupload
         if (file == null || file.isEmpty()) {
-            return null; // Return null jika file kosong atau tidak diupload
+            return null; 
         }
     
         Path uploadPath = Paths.get(uploadDir + subDir);
         if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath); // Buat folder jika belum ada
+            Files.createDirectories(uploadPath); 
         }
     
         Path filePath = uploadPath.resolve(file.getOriginalFilename());
         Files.write(filePath, file.getBytes());
-        return filePath.toString(); // Kembalikan path file yang tersimpan
+        return filePath.toString(); 
     }
     
 }
