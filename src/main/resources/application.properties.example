@@ -1,0 +1,19 @@
+# Application name
+spring.application.name=yourappname
+
+# Database configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/yourdatabase
+spring.datasource.username=yourusername
+spring.datasource.password=yourpassword
+
+# JPA & Hibernate settings
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# Error handling
+server.error.include-stacktrace=never
+
+# JWT settings 
+jwt.expirationMs=3600000  
+jwt.secret=yourjwtsecretkey 
+jwt.refreshExpirationMs=86400000  
